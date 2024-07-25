@@ -1,6 +1,6 @@
-import { Button, Group, Paper, Text, Title } from "@mantine/core";
-import { IconEdit } from "@tabler/icons-react";
+import { Group, Paper, Text, Title } from "@mantine/core";
 import PostDelete from "../components/post/PostDelete/PostDelete";
+import PostEdit from "../components/post/PostEdit/PostEdit";
 
 interface Props {}
 
@@ -18,9 +18,7 @@ export default function PostPage(_props: Props): JSX.Element {
             magni vel fugit. Commodi facilis veritatis sapiente dolor
             necessitatibus voluptates totam officia quibusdam mollitia.
           </Text>
-          <Button radius={"xl"} variant="light" leftSection={<IconEdit />}>
-            Editar
-          </Button>
+          <PostEdit />
           <PostDelete />
         </Group>
       </Paper>
