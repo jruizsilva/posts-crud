@@ -8,7 +8,6 @@ import {
 } from "@mantine/core";
 import { useForm, yupResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
-import { IconEdit } from "@tabler/icons-react";
 import * as yup from "yup";
 
 const schema = yup.object().shape({
@@ -18,20 +17,19 @@ const schema = yup.object().shape({
 
 interface Props {}
 
-export default function PostEdit(_props: Props): JSX.Element {
+export default function PostCreate(_props: Props): JSX.Element {
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      title: "123",
-      content: "444",
+      title: "",
+      content: "",
     },
     validate: yupResolver(schema),
   });
-
   return (
     <>
-      <Modal opened={opened} onClose={close} title="Editar publicación">
+      <Modal opened={opened} onClose={close} title="Crear publicación">
         <form
           onSubmit={form.onSubmit((values) => {
             console.log(values);
@@ -61,18 +59,12 @@ export default function PostEdit(_props: Props): JSX.Element {
             >
               Cancelar
             </Button>
-            <Button type="submit">Guardar</Button>
+            <Button type="submit">Crear</Button>
           </Group>
         </form>
       </Modal>
-
-      <Button
-        radius={"xl"}
-        variant="light"
-        leftSection={<IconEdit />}
-        onClick={open}
-      >
-        Editar
+      <Button variant="light" onClick={open}>
+        Agregar post
       </Button>
     </>
   );

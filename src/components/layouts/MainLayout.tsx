@@ -9,26 +9,24 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./MainLayout.module.scss";
-import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 const links = [
-  { link: "/", label: "Home" },
-  { link: "/users", label: "Users" },
+  { link: "/publicaciones", label: "Publicaciones" },
+  { link: "/usuarios", label: "Usuarios" },
 ];
 
 export function MainLayout() {
   const [opened, { toggle }] = useDisclosure();
-  const [active, setActive] = useState(links[0].link);
   const buttonSize = useMatches({ base: "md", xs: "xs" });
+  const { pathname } = useLocation();
 
   const items = links.map((link) => (
     <Button
       component={NavLink}
       key={link.label}
       to={link.link}
-      variant={active === link.link ? "filled" : "subtle"}
-      onClick={() => setActive(link.link)}
+      variant={pathname.includes(link.link) ? "filled" : "subtle"}
       w={{ base: "100%", xs: "auto" }}
       size={buttonSize}
     >
