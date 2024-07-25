@@ -54,7 +54,7 @@ export function MainLayout() {
             variant="gradient"
             gradient={{ from: "indigo", to: "teal", deg: 90 }}
             component={NavLink}
-            to={"/"}
+            to={"/posts"}
           >
             LogoApp
           </Text>

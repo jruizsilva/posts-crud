@@ -1,5 +1,5 @@
 import { SimpleGrid } from "@mantine/core";
-import PostCard from "../components/ui/PostCard/PostCard";
+import PostCard from "../components/post/PostCard/PostCard";
 
 interface Props {}
 
