@@ -1,3 +1,3 @@
-export { default as HomePage } from './HomePage';
- 
-export { default as UserListPage } from './UserListPage';
+export { default as HomePage } from "./PostListPage";
+
+export { default as UserListPage } from "./UserListPage";

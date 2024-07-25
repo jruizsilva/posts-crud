@@ -55,9 +55,8 @@ export function MainLayout() {
             gradient={{ from: "indigo", to: "teal", deg: 90 }}
             component={NavLink}
             to={"/"}
-            className={classes.logo}
           >
-            Logo
+            LogoApp
           </Text>
           <Group gap={5} visibleFrom="xs">
             {items}
@@ -68,15 +67,7 @@ export function MainLayout() {
       </AppShell.Header>
 
       <AppShell.Navbar py="md" px={4}>
-        <Group
-          gap={15}
-          h={"100%"}
-          hiddenFrom="xs"
-          ta={"center"}
-          className={classes.group_mobile}
-        >
-          {items}
-        </Group>
+        <Group hiddenFrom="xs">{items}</Group>
       </AppShell.Navbar>
 
       <AppShell.Main>
