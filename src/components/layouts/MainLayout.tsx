@@ -10,6 +10,7 @@ import {
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./MainLayout.module.scss";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
+import UserMenu from "../common/UserMenu";
 
 const links = [
   { link: "/publicaciones", label: "Publicaciones" },
@@ -26,7 +27,8 @@ export function MainLayout() {
       component={NavLink}
       key={link.label}
       to={link.link}
-      variant={pathname.includes(link.link) ? "filled" : "subtle"}
+      color="gray"
+      variant={pathname.includes(link.link) ? "default" : "subtle"}
       w={{ base: "100%", xs: "auto" }}
       size={buttonSize}
     >
@@ -59,6 +61,7 @@ export function MainLayout() {
           <Group gap={5} visibleFrom="xs">
             {items}
           </Group>
+          <UserMenu />
 
           <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
         </Container>
