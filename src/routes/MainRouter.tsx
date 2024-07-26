@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "../components/layouts/MainLayout";
-import { LoginPage, PostListPage, UserListPage } from "../pages";
+import { HomePage, LoginPage, UserListPage } from "../pages";
 import PostPage from "../pages/PostPage";
 import { Center, Loader } from "@mantine/core";
 import RegisterPage from "../pages/RegisterPage";
@@ -24,17 +24,17 @@ export default function MainRouter(_props: Props): JSX.Element {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/">
-            <Route index element={<PostListPage />} />
+            <Route index element={<HomePage />} />
             <Route path="/publicaciones/:id" element={<PostPage />} />
           </Route>
           <Route path="/usuarios">
             <Route index element={<UserListPage />} />
             <Route path=":id" element={<h1>User Detail Page</h1>} />
           </Route>
-          <Route path="*" element={<Navigate to={"/"} />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </>
   );

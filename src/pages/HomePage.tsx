@@ -4,7 +4,7 @@ import PostCreate from "../components/post/PostCreate/PostCreate";
 
 interface Props {}
 
-export default function PostListPage(_props: Props): JSX.Element {
+export default function HomePage(_props: Props): JSX.Element {
   return (
     <>
       <Group justify="space-between">
