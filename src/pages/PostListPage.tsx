@@ -9,7 +9,7 @@ export default function PostListPage(_props: Props): JSX.Element {
     <>
       <Group justify="space-between">
         <Title mb={"lg"} fw={500}>
-          Listado de posts
+          Listado de publicaciones
         </Title>
         <PostCreate />
       </Group>

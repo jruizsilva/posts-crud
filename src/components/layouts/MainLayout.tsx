@@ -13,7 +13,7 @@ import { NavLink, Outlet, useLocation } from "react-router-dom";
 import UserMenu from "../common/UserMenu";
 
 const links = [
-  { link: "/publicaciones", label: "Publicaciones" },
+  { link: "/", label: "Inicio" },
   { link: "/usuarios", label: "Usuarios" },
 ];
 
@@ -22,17 +22,17 @@ export function MainLayout() {
   const buttonSize = useMatches({ base: "md", xs: "xs" });
   const { pathname } = useLocation();
 
-  const items = links.map((link) => (
+  const items = links.map(({ label, link }) => (
     <Button
       component={NavLink}
-      key={link.label}
-      to={link.link}
+      key={label}
+      to={link}
       color="gray"
-      variant={pathname.includes(link.link) ? "default" : "subtle"}
+      variant={pathname == link ? "default" : "subtle"}
       w={{ base: "100%", xs: "auto" }}
       size={buttonSize}
     >
-      {link.label}
+      {label}
     </Button>
   ));
 
@@ -54,7 +54,7 @@ export function MainLayout() {
             variant="gradient"
             gradient={{ from: "indigo", to: "teal", deg: 90 }}
             component={NavLink}
-            to={"/posts"}
+            to={"/"}
           >
             LogoApp
           </Text>

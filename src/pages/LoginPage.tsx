@@ -6,17 +6,40 @@ import {
   Text,
   Button,
   Center,
-  SimpleGrid,
   Card,
-  Flex,
+  Stack,
 } from "@mantine/core";
 import { NavLink } from "react-router-dom";
+import { useLoginMutation } from "../hooks/auth/useLoginMutation";
+import { useForm, yupResolver } from "@mantine/form";
+import * as yup from "yup";
+
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email("El email no es valido")
+    .required("El correo es requerido"),
+  password: yup
+    .string()
+    .min(4, "Minimo 4 caracteres")
+    .required("La contraseña es requerida"),
+});
 
 export default function LoginPage() {
+  const { login, isPending } = useLoginMutation();
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validate: yupResolver(schema),
+  });
+
   return (
     <Center h={"100vh"}>
-      <Flex direction={"column"} gap={20}>
-        <SimpleGrid spacing={5}>
+      <Stack gap={"lg"}>
+        <Stack gap={5}>
           <Title ta="center">Iniciar sesión</Title>
           <Text c="dimmed" size="sm" ta="center">
             ¿No tienes una cuenta todavia?{" "}
@@ -24,19 +47,36 @@ export default function LoginPage() {
               Crear cuenta
             </Anchor>
           </Text>
-        </SimpleGrid>
+        </Stack>
         <Card maw={"100%"} w={{ base: "auto", xs: "400" }}>
-          <SimpleGrid>
-            <TextInput label="Correo" placeholder="you@mantine.dev" required />
-            <PasswordInput
-              label="Contraseña"
-              placeholder="Tu contraseña"
-              required
-            />
-            <Button fullWidth>Iniciar sesión</Button>
-          </SimpleGrid>
+          <form
+            onSubmit={form.onSubmit((values) => {
+              console.log(values);
+              login(values);
+            })}
+          >
+            <Stack>
+              <TextInput
+                label="Correo"
+                withAsterisk
+                placeholder="you@mantine.dev"
+                key={form.key("email")}
+                {...form.getInputProps("email")}
+              />
+              <PasswordInput
+                label="Contraseña"
+                withAsterisk
+                placeholder="Tu contraseña"
+                key={form.key("password")}
+                {...form.getInputProps("password")}
+              />
+              <Button type="submit" fullWidth loading={isPending}>
+                Iniciar sesión
+              </Button>
+            </Stack>
+          </form>
         </Card>
-      </Flex>
+      </Stack>
     </Center>
   );
 }

@@ -13,7 +13,7 @@ export default function PostCard(_props: Props): JSX.Element {
           size="lg"
           lineClamp={1}
           component={Link}
-          to={"1"}
+          to={"/publicaciones/1"}
           className={classes.title}
         >
           You&apos;ve won a million dollars in cash!
