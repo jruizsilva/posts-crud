@@ -64,7 +64,7 @@ export default function PostCreate(_props: Props): JSX.Element {
         </form>
       </Modal>
       <Button variant="light" onClick={open}>
-        Agregar post
+        Crear post
       </Button>
     </>
   );
