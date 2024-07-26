@@ -4,4 +4,10 @@ interface User {
   email: string;
 }
 
-export type { User };
+interface UserRequest {
+  name: string;
+  email: string;
+  password: string;
+}
+
+export type { User, UserRequest };

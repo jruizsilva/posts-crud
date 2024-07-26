@@ -22,7 +22,7 @@ export const useLoginMutation = () => {
       notifications.show({
         title: message,
         message: "El correo o la contraseña no es correcto",
-        autoClose: false,
+        autoClose: 5000,
         withCloseButton: true,
         color: "red",
       });

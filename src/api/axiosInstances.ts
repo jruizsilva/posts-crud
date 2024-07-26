@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { baseURL } from "../utils/baseURL";
 
@@ -21,7 +21,7 @@ protectedInstance.interceptors.request.use(
 
     return config;
   },
-  async function (error) {
+  async function (error: AxiosError<{ message: string }>) {
     return await Promise.reject(error);
   }
 );
