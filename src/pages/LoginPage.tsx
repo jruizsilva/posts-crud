@@ -31,8 +31,8 @@ export default function LoginPage() {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      email: location.state?.email ?? "",
-      password: "",
+      email: location.state?.email ?? "test@gmail.com",
+      password: "test",
     },
     validate: yupResolver(schema),
   });

@@ -1,10 +1,13 @@
 import { Card, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import classes from "./PostCard.module.scss";
+import { Post } from "../../../types/post";
 
-interface Props {}
+interface Props {
+  post: Post;
+}
 
-export default function PostCard(_props: Props): JSX.Element {
+export default function PostCard({ post }: Props): JSX.Element {
   return (
     <>
       <Card shadow="sm" padding="xl">
@@ -13,16 +16,15 @@ export default function PostCard(_props: Props): JSX.Element {
           size="lg"
           lineClamp={1}
           component={Link}
-          to={"/publicaciones/1"}
+          to={`publicaciones/${post.id}`}
+          state={{ post }}
           className={classes.title}
         >
-          You&apos;ve won a million dollars in cash!
+          {post.title}
         </Text>
 
         <Text mt="xs" c="dimmed" size="sm" lineClamp={3}>
-          Please click anywhere on this card to claim your reward, this is not a
-          fraud, trust us Please click anywhere on this card to claim your
-          reward, this is not a fraud, trust us
+          {post.content}
         </Text>
       </Card>
     </>

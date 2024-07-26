@@ -1,10 +1,13 @@
 import { Group, SimpleGrid, Title } from "@mantine/core";
 import PostCard from "../components/post/PostCard/PostCard";
 import PostCreate from "../components/post/PostCreate/PostCreate";
+import { usePostListQuery } from "../hooks/post/usePostListQuery";
 
 interface Props {}
 
 export default function HomePage(_props: Props): JSX.Element {
+  const { posts } = usePostListQuery();
+
   return (
     <>
       <Group justify="space-between">
@@ -14,10 +17,9 @@ export default function HomePage(_props: Props): JSX.Element {
         <PostCreate />
       </Group>
       <SimpleGrid cols={3}>
-        <PostCard />
-        <PostCard />
-        <PostCard />
-        <PostCard />
+        {posts?.map((post) => (
+          <PostCard key={post.id} post={post} />
+        ))}
       </SimpleGrid>
     </>
   );

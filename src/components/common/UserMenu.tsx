@@ -10,7 +10,6 @@ export default function UserMenu(_props: Props): JSX.Element {
     (store) => store
   );
   const navigate = useNavigate();
-  console.log(userAuthenticated);
 
   const logout = () => {
     localStorage.removeItem("AUTH_TOKEN");
