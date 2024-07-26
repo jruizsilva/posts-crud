@@ -1,46 +1,17 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "../components/layouts/MainLayout";
 import { LoginPage, PostListPage, UserListPage } from "../pages";
 import PostPage from "../pages/PostPage";
-import { useEffect, useState } from "react";
 import { Center, Loader } from "@mantine/core";
-import { useAppStore } from "../store/useAppStore";
-import { fetchMe } from "../services/auth";
 import RegisterPage from "../pages/RegisterPage";
+import { useAuth } from "../hooks/useAuth";
 
 interface Props {}
 
 export default function MainRouter(_props: Props): JSX.Element {
-  const [isLoading, setLoading] = useState(true);
-  const setUserAuthenticated = useAppStore(
-    (store) => store.setUserAuthenticated
-  );
-  const navigate = useNavigate();
+  const { isAuthenticating } = useAuth();
 
-  useEffect(() => {
-    const token = localStorage.getItem("AUTH_TOKEN");
-
-    if (!token) {
-      setUserAuthenticated(null);
-      setLoading(false);
-      return navigate("login");
-    }
-    fetchMe()
-      .then((user) => {
-        setUserAuthenticated(user);
-      })
-      .catch((err) => {
-        console.log(err);
-        setUserAuthenticated(null);
-        localStorage.removeItem("AUTH_TOKEN");
-        navigate("login");
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  if (isLoading) {
+  if (isAuthenticating) {
     return (
       <Center h={"100vh"}>
         <Loader type="dots" />

@@ -14,7 +14,7 @@ protectedInstance.interceptors.request.use(
     const AUTH_TOKEN = localStorage.getItem("AUTH_TOKEN");
 
     if (AUTH_TOKEN === null) {
-      throw new Error("Token expired");
+      throw new Error("Token invalid");
     }
 
     config.headers.Authorization = "Bearer " + AUTH_TOKEN;
