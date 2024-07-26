@@ -1,4 +1,4 @@
-import { protectedInstance } from "../api/axiosInstances";
+import { protectedInstance, publicInstance } from "../api/axiosInstances";
 import { User, UserRequest } from "../types/user";
 
 export const fetchUserList = async () => {
@@ -7,6 +7,6 @@ export const fetchUserList = async () => {
 };
 
 export const fetchCreateUser = async (user: UserRequest) => {
-  const { data } = await protectedInstance.post<User>("/users", user);
+  const { data } = await publicInstance.post<User>("/users", user);
   return data;
 };

@@ -9,7 +9,7 @@ import {
   Card,
   Stack,
 } from "@mantine/core";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { useLoginMutation } from "../hooks/auth/useLoginMutation";
 import { useForm, yupResolver } from "@mantine/form";
 import * as yup from "yup";
@@ -27,10 +27,11 @@ const schema = yup.object().shape({
 
 export default function LoginPage() {
   const { login, isPending } = useLoginMutation();
+  const location = useLocation();
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      email: "",
+      email: location.state.email ?? "",
       password: "",
     },
     validate: yupResolver(schema),
@@ -51,7 +52,6 @@ export default function LoginPage() {
         <Card maw={"100%"} w={{ base: "auto", xs: "400" }}>
           <form
             onSubmit={form.onSubmit((values) => {
-              console.log(values);
               login(values);
             })}
           >
@@ -65,6 +65,7 @@ export default function LoginPage() {
               />
               <PasswordInput
                 label="Contraseña"
+                autoFocus
                 withAsterisk
                 placeholder="Tu contraseña"
                 key={form.key("password")}

@@ -1,7 +1,5 @@
 import {
   Center,
-  Flex,
-  SimpleGrid,
   Title,
   Anchor,
   Card,
@@ -9,17 +7,44 @@ import {
   PasswordInput,
   Button,
   Text,
+  Stack,
 } from "@mantine/core";
 import { NavLink } from "react-router-dom";
+import * as yup from "yup";
+import { useCreateUserMutation } from "../hooks/user/useCreateUserMutation";
+import { useForm, yupResolver } from "@mantine/form";
+
+const schema = yup.object().shape({
+  name: yup.string().required("El nombre es requerido"),
+  email: yup
+    .string()
+    .email("El email no es valido")
+    .required("El correo es requerido"),
+  password: yup
+    .string()
+    .min(4, "Minimo 4 caracteres")
+    .required("La contraseña es requerida"),
+});
 
 interface Props {}
 
 export default function RegisterPage(_props: Props): JSX.Element {
+  const { createUser, isPending } = useCreateUserMutation();
+  const form = useForm({
+    mode: "uncontrolled",
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+    },
+    validate: yupResolver(schema),
+  });
+
   return (
     <>
       <Center h={"100vh"}>
-        <Flex direction={"column"} gap={20}>
-          <SimpleGrid spacing={5}>
+        <Stack gap={20}>
+          <Stack gap={5}>
             <Title ta="center">Crear cuenta</Title>
             <Text c="dimmed" size="sm" ta="center">
               ¿Ya tienes una cuenta?{" "}
@@ -27,24 +52,43 @@ export default function RegisterPage(_props: Props): JSX.Element {
                 Inicia sesión
               </Anchor>
             </Text>
-          </SimpleGrid>
+          </Stack>
           <Card maw={"100%"} w={{ base: "auto", xs: "400" }}>
-            <SimpleGrid>
-              <TextInput label="Nombre" placeholder="John Doe" required />
-              <TextInput
-                label="Correo"
-                placeholder="you@mantine.dev"
-                required
-              />
-              <PasswordInput
-                label="Contraseña"
-                placeholder="Tu contraseña"
-                required
-              />
-              <Button fullWidth>Crear cuenta</Button>
-            </SimpleGrid>
+            <form
+              onSubmit={form.onSubmit((values) => {
+                console.log(values);
+                createUser(values);
+              })}
+            >
+              <Stack>
+                <TextInput
+                  label="Nombre"
+                  placeholder="John Doe"
+                  withAsterisk
+                  key={form.key("name")}
+                  {...form.getInputProps("name")}
+                />
+                <TextInput
+                  label="Correo"
+                  placeholder="you@mantine.dev"
+                  withAsterisk
+                  key={form.key("email")}
+                  {...form.getInputProps("email")}
+                />
+                <PasswordInput
+                  label="Contraseña"
+                  placeholder="Tu contraseña"
+                  withAsterisk
+                  key={form.key("password")}
+                  {...form.getInputProps("password")}
+                />
+                <Button type="submit" fullWidth loading={isPending}>
+                  Crear cuenta
+                </Button>
+              </Stack>
+            </form>
           </Card>
-        </Flex>
+        </Stack>
       </Center>
     </>
   );

@@ -3,9 +3,11 @@ import { User, UserRequest } from "../../types/user";
 import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { fetchCreateUser } from "../../services/user";
+import { useNavigate } from "react-router-dom";
 
 export const useCreateUserMutation = () => {
   const mutationKey = ["create-user"];
+  const navigate = useNavigate();
 
   const { mutate: createUser, ...rest } = useMutation({
     mutationKey,
@@ -15,12 +17,13 @@ export const useCreateUserMutation = () => {
 
     onSuccess: (user: User) => {
       notifications.show({
-        title: "Usuario creado",
-        message: `El usuario ${user.name} ha sido creado`,
+        title: "Cuenta creada correctamente",
+        message: `Inicia sesión en la aplicación`,
         autoClose: 5000,
         withCloseButton: true,
         color: "green",
       });
+      navigate("/login", { state: { email: user.email } });
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message || "Error al crear usuario";
