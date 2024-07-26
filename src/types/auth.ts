@@ -1,3 +1,5 @@
+import { User } from "./user";
+
 interface LoginRequest {
   email: string;
   password: string;
@@ -5,5 +7,6 @@ interface LoginRequest {
 
 interface LoginResponse {
   token: string;
+  user: User;
 }
 export type { LoginRequest, LoginResponse };

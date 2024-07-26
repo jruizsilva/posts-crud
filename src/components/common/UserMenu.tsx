@@ -1,9 +1,23 @@
 import { Button, Menu, rem, Stack, Text } from "@mantine/core";
 import { IconChevronDown, IconLogout } from "@tabler/icons-react";
+import { useAppStore } from "../../store/useAppStore";
+import { useNavigate } from "react-router-dom";
 
 interface Props {}
 
 export default function UserMenu(_props: Props): JSX.Element {
+  const { userAuthenticated, setUserAuthenticated } = useAppStore(
+    (store) => store
+  );
+  const navigate = useNavigate();
+  console.log(userAuthenticated);
+
+  const logout = () => {
+    localStorage.removeItem("AUTH_TOKEN");
+    setUserAuthenticated(null);
+    navigate("/login");
+  };
+
   return (
     <>
       <Menu width={180} shadow="md">
@@ -16,10 +30,10 @@ export default function UserMenu(_props: Props): JSX.Element {
           >
             <Stack gap={0}>
               <Text size="xs" fw={500} tt={"capitalize"}>
-                honathan
+                {userAuthenticated?.name}
               </Text>
               <Text c="dimmed" size="xs" tt={"lowercase"}>
-                Jonathan@gmail.com
+                {userAuthenticated?.email}
               </Text>
             </Stack>
           </Button>
@@ -30,6 +44,7 @@ export default function UserMenu(_props: Props): JSX.Element {
             leftSection={
               <IconLogout style={{ width: rem(14), height: rem(14) }} />
             }
+            onClick={logout}
           >
             Cerrar sesión
           </Menu.Item>

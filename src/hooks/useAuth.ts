@@ -9,6 +9,7 @@ export const useAuth = () => {
   );
 
   useEffect(() => {
+    console.log("authetn");
     const token = localStorage.getItem("AUTH_TOKEN");
     if (!token) {
       setUserAuthenticated(null);

@@ -31,7 +31,7 @@ export default function LoginPage() {
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      email: location.state.email ?? "",
+      email: location.state?.email ?? "",
       password: "",
     },
     validate: yupResolver(schema),
@@ -65,7 +65,6 @@ export default function LoginPage() {
               />
               <PasswordInput
                 label="Contraseña"
-                autoFocus
                 withAsterisk
                 placeholder="Tu contraseña"
                 key={form.key("password")}

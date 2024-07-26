@@ -5,6 +5,8 @@ import PostPage from "../pages/PostPage";
 import { Center, Loader } from "@mantine/core";
 import RegisterPage from "../pages/RegisterPage";
 import { useAuth } from "../hooks/useAuth";
+import GuestRoutes from "./GuestRoutes";
+import AuthRoutes from "./AuthRoutes";
 
 interface Props {}
 
@@ -23,15 +25,19 @@ export default function MainRouter(_props: Props): JSX.Element {
     <>
       <Routes>
         <Route element={<MainLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/publicaciones">
-            <Route index element={<HomePage />} />
-            <Route path=":id" element={<PostPage />} />
+          <Route element={<AuthRoutes />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/publicaciones">
+              <Route index element={<HomePage />} />
+              <Route path=":id" element={<PostPage />} />
+            </Route>
+            <Route path="/usuarios" element={<UserListPage />} />
           </Route>
-          <Route path="/usuarios" element={<UserListPage />} />
         </Route>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route element={<GuestRoutes />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
     </>

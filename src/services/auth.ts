@@ -14,7 +14,3 @@ export const fetchMe = async () => {
   const { data } = await protectedInstance.get<User>("/me");
   return data;
 };
-
-export const fetchLogout = async () => {
-  await protectedInstance.post("/logout");
-};
