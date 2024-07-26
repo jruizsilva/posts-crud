@@ -24,7 +24,8 @@ export default function MainRouter(_props: Props): JSX.Element {
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/publicaciones" element={<HomePage />}>
+          <Route path="/publicaciones">
+            <Route index element={<HomePage />} />
             <Route path=":id" element={<PostPage />} />
           </Route>
           <Route path="/usuarios" element={<UserListPage />} />
