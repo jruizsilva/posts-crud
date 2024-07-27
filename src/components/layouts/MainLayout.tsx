@@ -56,7 +56,7 @@ export function MainLayout() {
             component={NavLink}
             to={"/"}
           >
-            LogoApp
+            Blog App
           </Text>
           <Group gap={5} visibleFrom="xs">
             {items}

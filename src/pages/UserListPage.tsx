@@ -48,7 +48,7 @@ export default function UserListPage(_props: Props): JSX.Element {
         <Table.Td>{id}</Table.Td>
         <Table.Td>
           <Group gap="sm">
-            <Avatar size={26} radius={26} />
+            <Avatar size={26} radius={26} color="indigo" />
             <Stack gap={0}>
               <Text size="sm" fw={500}>
                 {name}

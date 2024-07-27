@@ -10,14 +10,8 @@ export default function HomePage(_props: Props): JSX.Element {
 
   return (
     <>
-      {/* <Group justify="space-between">
-        <Title mb={"lg"} fw={500}>
-          Listado de publicaciones
-        </Title>
-        <PostCreate />
-      </Group> */}
       {isPending && (
-        <SimpleGrid cols={3}>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
           {Array.from({ length: 9 }).map((_, index) => (
             <PostCardSkeleton key={index} />
           ))}
@@ -27,7 +21,7 @@ export default function HomePage(_props: Props): JSX.Element {
         <Text>No se encontraron resultados</Text>
       )}
       {!isPending && posts && posts.length > 0 && (
-        <SimpleGrid cols={3}>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
           {posts?.map((post) => (
             <PostCard key={post.id} post={post} />
           ))}
