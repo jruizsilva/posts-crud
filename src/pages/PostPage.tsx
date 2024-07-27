@@ -1,4 +1,12 @@
-import { Group, Paper, Stack, Text, Title } from "@mantine/core";
+import {
+  Center,
+  Group,
+  Loader,
+  Paper,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core";
 import PostDelete from "../components/post/PostDelete/PostDelete";
 import PostEdit from "../components/post/PostEdit/PostEdit";
 import { usePostByIdQuery } from "../hooks/post/usePostByIdQuery";
@@ -6,7 +14,25 @@ import { usePostByIdQuery } from "../hooks/post/usePostByIdQuery";
 interface Props {}
 
 export default function PostPage(_props: Props): JSX.Element {
-  const { post } = usePostByIdQuery();
+  const { post, isPending } = usePostByIdQuery();
+
+  if (!post && isPending) {
+    return (
+      <Center h={"80vh"}>
+        <Loader type="dots" />
+      </Center>
+    );
+  }
+
+  if (!post) {
+    return (
+      <>
+        <Center my={"lg"}>
+          <Title fw={400}>Post not found</Title>
+        </Center>
+      </>
+    );
+  }
 
   return (
     <>
@@ -19,7 +45,7 @@ export default function PostPage(_props: Props): JSX.Element {
             <Text c="dimmed">{post?.content}</Text>
           </Stack>
           <Group>
-            <PostEdit />
+            <PostEdit post={post} />
             <PostDelete />
           </Group>
         </Stack>

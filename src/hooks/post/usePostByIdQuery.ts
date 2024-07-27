@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchPostById } from "../../services/post";
 import { useLocation, useParams } from "react-router-dom";
+import { Post } from "../../types/post";
 
 export const usePostByIdQuery = () => {
   const location = useLocation();
@@ -8,7 +9,7 @@ export const usePostByIdQuery = () => {
   const postId = params.id as string;
   const queryKey = ["/posts", postId];
 
-  const initialPost = location.state?.post;
+  const initialPost: Post | undefined = location.state?.post;
 
   const { data: post, ...rest } = useQuery({
     queryKey,
@@ -16,7 +17,7 @@ export const usePostByIdQuery = () => {
       if (initialPost) {
         return initialPost;
       }
-      return fetchPostById(postId);
+      return await fetchPostById(postId);
     },
     initialData: initialPost,
   });

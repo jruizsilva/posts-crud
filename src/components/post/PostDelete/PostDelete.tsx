@@ -1,8 +1,9 @@
-interface Props {}
 import { Button, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { IconCheck, IconTrash } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
+
+interface Props {}
 
 export default function PostDelete(_props: Props): JSX.Element {
   const openDeleteModal = () =>

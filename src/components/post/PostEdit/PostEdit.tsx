@@ -1,5 +1,6 @@
 import {
   Button,
+  CheckIcon,
   Group,
   Modal,
   SimpleGrid,
@@ -10,31 +11,37 @@ import { useForm, yupResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { IconEdit } from "@tabler/icons-react";
 import * as yup from "yup";
+import { usePostEditMutation } from "../../../hooks/post/usePostEditMutation";
+import { Post } from "../../../types/post";
+import { notifications } from "@mantine/notifications";
 
 const schema = yup.object().shape({
   title: yup.string().required("Titulo requerido"),
   content: yup.string().required("Contenido requerido"),
 });
 
-interface Props {}
+interface Props {
+  post: Post;
+}
 
-export default function PostEdit(_props: Props): JSX.Element {
+export default function PostEdit({ post }: Props): JSX.Element {
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
-      title: "123",
-      content: "444",
+      title: post.title,
+      content: post.content,
     },
     validate: yupResolver(schema),
   });
+  const { editPost } = usePostEditMutation();
 
   return (
     <>
       <Modal opened={opened} onClose={close} title="Editar publicación">
         <form
           onSubmit={form.onSubmit((values) => {
-            console.log(values);
+            editPost(values);
           })}
         >
           <SimpleGrid spacing={"xs"}>

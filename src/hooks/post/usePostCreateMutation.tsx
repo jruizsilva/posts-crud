@@ -11,7 +11,7 @@ export const usePostCreateMutation = () => {
   const { mutate: createPost, ...rest } = useMutation({
     mutationKey,
     mutationFn: async (post: PostRequest) => {
-      return fetchCreatePost(post);
+      return await fetchCreatePost(post);
     },
     onSuccess: (post: Post) => {
       notifications.show({
