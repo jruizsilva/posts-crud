@@ -2,11 +2,12 @@ import { Group, SimpleGrid, Title } from "@mantine/core";
 import PostCard from "../components/post/PostCard/PostCard";
 import PostCreate from "../components/post/PostCreate/PostCreate";
 import { usePostListQuery } from "../hooks/post/usePostListQuery";
+import CardSkeleton from "../components/common/CardSkeleton";
 
 interface Props {}
 
 export default function HomePage(_props: Props): JSX.Element {
-  const { posts } = usePostListQuery();
+  const { posts, isPending } = usePostListQuery();
 
   return (
     <>
@@ -17,9 +18,20 @@ export default function HomePage(_props: Props): JSX.Element {
         <PostCreate />
       </Group>
       <SimpleGrid cols={3}>
-        {posts?.map((post) => (
-          <PostCard key={post.id} post={post} />
-        ))}
+        {isPending && (
+          <>
+            {Array.from({ length: 9 }).map(() => (
+              <CardSkeleton />
+            ))}
+          </>
+        )}
+        {!isPending && posts && posts.length > 0 && (
+          <>
+            {posts?.map((post) => (
+              <PostCard key={post.id} post={post} />
+            ))}
+          </>
+        )}
       </SimpleGrid>
     </>
   );
