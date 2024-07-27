@@ -1,6 +1,5 @@
-import { Group, SimpleGrid, Text, Title } from "@mantine/core";
+import { SimpleGrid, Text } from "@mantine/core";
 import PostCard from "../components/post/PostCard/PostCard";
-import PostCreate from "../components/post/PostCreate/PostCreate";
 import { usePostListQuery } from "../hooks/post/usePostListQuery";
 import PostCardSkeleton from "../components/common/PostCardSkeleton";
 

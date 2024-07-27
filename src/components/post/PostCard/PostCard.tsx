@@ -1,4 +1,4 @@
-import { Avatar, Card, Group, Stack, Text } from "@mantine/core";
+import { Avatar, Box, Card, Group, Stack, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
 import classes from "./PostCard.module.scss";
 import { Post } from "../../../types/post";
@@ -30,12 +30,7 @@ export default function PostCard({ post }: Props): JSX.Element {
           </Text>
           <Group wrap="nowrap" gap="xs" mt={"auto"}>
             <Group gap="xs" wrap="nowrap">
-              <Avatar
-                size={20}
-                src={`https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-${
-                  post.user_id <= 10 ? post.user_id : 1
-                }.png`}
-              />
+              <Avatar size={20} />
               <Text size="xs">{post.user?.name}</Text>
             </Group>
             <Text size="xs" c="dimmed">
