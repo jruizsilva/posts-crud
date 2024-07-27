@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { NavLink } from "react-router-dom";
 import * as yup from "yup";
-import { useCreateUserMutation } from "../hooks/user/useCreateUserMutation";
+import { useUserCreateMutation } from "../hooks/user/useUserCreateMutation";
 import { useForm, yupResolver } from "@mantine/form";
 
 const schema = yup.object().shape({
@@ -29,7 +29,7 @@ const schema = yup.object().shape({
 interface Props {}
 
 export default function RegisterPage(_props: Props): JSX.Element {
-  const { createUser, isPending } = useCreateUserMutation();
+  const { createUser, isPending } = useUserCreateMutation();
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {

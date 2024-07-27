@@ -18,7 +18,7 @@ export default function PostCard({ post }: Props): JSX.Element {
             size="lg"
             lineClamp={1}
             component={Link}
-            to={`publicaciones/${post.id}`}
+            to={`/publicaciones/${post.id}`}
             state={{ post }}
             className={classes.title}
           >

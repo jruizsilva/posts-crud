@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPostList } from "../../services/post";
 
 export const usePostListQuery = (locationSearch: string = "") => {
-  const queryKey = ["/posts"];
+  const queryKey = ["/posts", locationSearch];
 
   const { data: posts, ...rest } = useQuery({
     queryKey,

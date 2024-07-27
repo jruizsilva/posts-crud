@@ -3,10 +3,12 @@ import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { Post, PostRequest } from "../../types/post";
 import { fetchCreatePost } from "../../services/post";
+import { useLocation } from "react-router-dom";
 
 export const usePostCreateMutation = () => {
   const mutationKey = ["post-create"];
   const queryClient = useQueryClient();
+  const location = useLocation();
 
   const { mutate: createPost, ...rest } = useMutation({
     mutationKey,
@@ -14,15 +16,16 @@ export const usePostCreateMutation = () => {
       return await fetchCreatePost(post);
     },
     onSuccess: (post: Post) => {
+      const queryKey = ["/posts", location.search];
+      queryClient.setQueryData(queryKey, (oldPosts: Post[]) => {
+        return [post, ...oldPosts];
+      });
       notifications.show({
         title: "Publicación creada correctamente",
         message: "",
         autoClose: 5000,
         withCloseButton: true,
         color: "green",
-      });
-      queryClient.setQueryData(["/posts"], (oldPosts: Post[]) => {
-        return [post, ...oldPosts];
       });
     },
     onError: (error: AxiosError<{ message: string }>) => {

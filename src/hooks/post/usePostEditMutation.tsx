@@ -3,7 +3,7 @@ import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { Post, PostRequest } from "../../types/post";
 import { fetchEditPost } from "../../services/post";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { CheckIcon } from "@mantine/core";
 
 export const usePostEditMutation = () => {
@@ -18,7 +18,8 @@ export const usePostEditMutation = () => {
       return await fetchEditPost(postId, post);
     },
     onSuccess: (post: Post) => {
-      queryClient.setQueryData(["/posts", postId], post);
+      const queryKey = ["/posts", postId];
+      queryClient.setQueryData(queryKey, post);
       notifications.show({
         title: "Exito!",
         message: "Actualizado correctamente",

@@ -3,7 +3,7 @@ import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { Post } from "../../types/post";
 import { fetchDeletePost } from "../../services/post";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { IconCheck } from "@tabler/icons-react";
 
 export const usePostDeleteMutation = () => {
@@ -12,6 +12,7 @@ export const usePostDeleteMutation = () => {
   const navigate = useNavigate();
   const params = useParams();
   const postId = params.id as string;
+  const location = useLocation();
 
   const { mutate: deletePost, ...rest } = useMutation({
     mutationKey,
@@ -19,6 +20,10 @@ export const usePostDeleteMutation = () => {
       return await fetchDeletePost(postId);
     },
     onSuccess: () => {
+      const queryKey = ["/posts", location.search];
+      queryClient.setQueryData(queryKey, (oldPosts: Post[]) => {
+        return oldPosts.filter((post) => post.id != Number(postId));
+      });
       notifications.update({
         id: postId,
         withCloseButton: true,
@@ -28,9 +33,6 @@ export const usePostDeleteMutation = () => {
         loading: false,
         autoClose: 2000,
         icon: <IconCheck size={20} />,
-      });
-      queryClient.setQueryData(["/posts"], (oldPosts: Post[]) => {
-        return oldPosts.filter((post) => post.id != Number(postId));
       });
       navigate("/");
     },

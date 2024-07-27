@@ -1,7 +1,17 @@
+import { Pagination } from "./global";
+import { Post } from "./post";
+
 interface User {
   id: number;
   name: string;
   email: string;
+  posts: Post[];
+  created_at: string;
+  updated_at: string;
+}
+
+interface UserListResponse extends Pagination {
+  data: User[];
 }
 
 interface UserRequest {
@@ -10,4 +20,4 @@ interface UserRequest {
   password: string;
 }
 
-export type { User, UserRequest };
+export type { User, UserRequest, UserListResponse };

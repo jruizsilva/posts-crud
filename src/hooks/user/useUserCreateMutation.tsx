@@ -5,7 +5,7 @@ import { AxiosError } from "axios";
 import { fetchCreateUser } from "../../services/user";
 import { useNavigate } from "react-router-dom";
 
-export const useCreateUserMutation = () => {
+export const useUserCreateMutation = () => {
   const mutationKey = ["create-user"];
   const navigate = useNavigate();
 
