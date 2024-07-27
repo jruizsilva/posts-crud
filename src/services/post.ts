@@ -6,8 +6,8 @@ export const fetchPostList = async () => {
   return data;
 };
 
-export const fetchPostById = async (productId: string) => {
-  const { data } = await protectedInstance.get<Post>(`/posts/${productId}`);
+export const fetchPostById = async (postId: string) => {
+  const { data } = await protectedInstance.get<Post>(`/posts/${postId}`);
   return data;
 };
 
@@ -17,17 +17,17 @@ export const fetchCreatePost = async (postRequest: PostRequest) => {
 };
 
 export const fetchEditPost = async (
-  productId: string,
+  postId: string,
   postRequest: PostRequest
 ) => {
   const { data } = await protectedInstance.put<Post>(
-    `/posts/${productId}`,
+    `/posts/${postId}`,
     postRequest
   );
   return data;
 };
 
-export const fetchDeletePost = async (productId: string) => {
-  const { data } = await protectedInstance.delete<[]>(`/posts/${productId}`);
+export const fetchDeletePost = async (postId: string) => {
+  const { data } = await protectedInstance.delete<[]>(`/posts/${postId}`);
   return data;
 };

@@ -1,6 +1,5 @@
 import {
   Button,
-  CheckIcon,
   Group,
   Modal,
   SimpleGrid,
@@ -13,7 +12,6 @@ import { IconEdit } from "@tabler/icons-react";
 import * as yup from "yup";
 import { usePostEditMutation } from "../../../hooks/post/usePostEditMutation";
 import { Post } from "../../../types/post";
-import { notifications } from "@mantine/notifications";
 
 const schema = yup.object().shape({
   title: yup.string().required("Titulo requerido"),

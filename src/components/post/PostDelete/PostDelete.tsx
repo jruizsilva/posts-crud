@@ -1,11 +1,17 @@
 import { Button, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
-import { IconCheck, IconTrash } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
+import { usePostDeleteMutation } from "../../../hooks/post/usePostDeleteMutation";
+import { useParams } from "react-router-dom";
 
 interface Props {}
 
 export default function PostDelete(_props: Props): JSX.Element {
+  const { deletePost } = usePostDeleteMutation();
+  const params = useParams();
+  const postId = params.id as string;
+
   const openDeleteModal = () =>
     modals.openConfirmModal({
       title: "Eliminar la publicación",
@@ -18,28 +24,16 @@ export default function PostDelete(_props: Props): JSX.Element {
       ),
       labels: { confirm: "Eliminar", cancel: "Cancelar" },
       confirmProps: { color: "red" },
-      onCancel: () => console.log("Cancel"),
       onConfirm: () => {
-        console.log("Confirmed");
-        const id = notifications.show({
+        deletePost();
+        notifications.show({
+          id: postId,
           loading: true,
           title: "Eliminando...",
           message: "",
           autoClose: false,
           withCloseButton: false,
         });
-        setTimeout(() => {
-          notifications.update({
-            id,
-            withCloseButton: true,
-            color: "green",
-            title: "Exito!",
-            message: "La publicación fue eliminada exitosamente",
-            loading: false,
-            autoClose: 2000,
-            icon: <IconCheck size={20} />,
-          });
-        }, 3000);
       },
     });
   return (

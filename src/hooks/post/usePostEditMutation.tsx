@@ -11,8 +11,6 @@ export const usePostEditMutation = () => {
   const params = useParams();
   const postId = params.id as string;
   const queryClient = useQueryClient();
-  const location = useLocation();
-  const navigate = useNavigate();
 
   const { mutate: editPost, ...rest } = useMutation({
     mutationKey,
@@ -28,12 +26,6 @@ export const usePostEditMutation = () => {
         withCloseButton: true,
         color: "green",
         icon: <CheckIcon size={"15"} />,
-      });
-      navigate(location.pathname, {
-        state: {
-          ...location.state,
-          post,
-        },
       });
     },
     onError: (error: AxiosError<{ message: string }>) => {
