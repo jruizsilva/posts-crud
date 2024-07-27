@@ -11,12 +11,12 @@ export default function HomePage(_props: Props): JSX.Element {
 
   return (
     <>
-      <Group justify="space-between">
+      {/* <Group justify="space-between">
         <Title mb={"lg"} fw={500}>
           Listado de publicaciones
         </Title>
         <PostCreate />
-      </Group>
+      </Group> */}
       {isPending && (
         <SimpleGrid cols={3}>
           {Array.from({ length: 9 }).map((_, index) => (

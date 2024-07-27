@@ -32,7 +32,7 @@ export const usePostDeleteMutation = (postId: number) => {
         autoClose: 2000,
         icon: <IconCheck size={20} />,
       });
-      navigate("/");
+      navigate("/mis-publicaciones");
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message || "Error al crear posts";
