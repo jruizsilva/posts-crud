@@ -13,6 +13,7 @@ import { IconSearch } from "@tabler/icons-react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useDebouncedState } from "@mantine/hooks";
 import { useEffect } from "react";
+import UserRowSkeleton from "../components/common/UserRowSkeleton";
 
 interface Props {}
 
@@ -20,7 +21,7 @@ export default function UserListPage(_props: Props): JSX.Element {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useDebouncedState("", 300);
   const location = useLocation();
-  const { users } = useUserListPaginationQuery(location.search);
+  const { users, isPending } = useUserListPaginationQuery(location.search);
 
   useEffect(() => {
     handleFilterChange("search", search);
@@ -95,7 +96,23 @@ export default function UserListPage(_props: Props): JSX.Element {
               <Table.Th>Correo</Table.Th>
             </Table.Tr>
           </Table.Thead>
-          <Table.Tbody>{rows}</Table.Tbody>
+          <Table.Tbody>
+            {isPending && (
+              <>
+                {Array.from({ length: 4 }).map(() => (
+                  <UserRowSkeleton />
+                ))}
+              </>
+            )}
+            {!isPending && rows && rows.length === 0 && (
+              <Table.Tr>
+                <Table.Td colSpan={3} align="center">
+                  No se encontraron usuarios
+                </Table.Td>
+              </Table.Tr>
+            )}
+            {!isPending && rows && rows.length > 0 && rows}
+          </Table.Tbody>
         </Table>
       </Stack>
     </>

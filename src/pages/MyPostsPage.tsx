@@ -27,6 +27,11 @@ export default function MyPostsPage(_props: Props): JSX.Element {
             ))}
           </>
         )}
+        {!isPending && posts && posts.length === 0 && (
+          <Title ta="center" mt={"lg"}>
+            No tienes publicaciones
+          </Title>
+        )}
         {!isPending && posts && posts.length > 0 && (
           <>
             {posts?.map((post) => (

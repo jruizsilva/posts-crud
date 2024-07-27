@@ -1,4 +1,4 @@
-import { Group, SimpleGrid, Title } from "@mantine/core";
+import { Group, SimpleGrid, Text, Title } from "@mantine/core";
 import PostCard from "../components/post/PostCard/PostCard";
 import PostCreate from "../components/post/PostCreate/PostCreate";
 import { usePostListQuery } from "../hooks/post/usePostListQuery";
@@ -17,6 +17,9 @@ export default function HomePage(_props: Props): JSX.Element {
         </Title>
         <PostCreate />
       </Group>
+      {!isPending && posts && posts.length === 0 && (
+        <Text>No se encontraron resultados</Text>
+      )}
       <SimpleGrid cols={3}>
         {isPending && (
           <>
@@ -27,7 +30,7 @@ export default function HomePage(_props: Props): JSX.Element {
         )}
         {!isPending && posts && posts.length > 0 && (
           <>
-            {posts?.map((post) => (
+            {posts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </>
