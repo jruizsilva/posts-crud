@@ -7,6 +7,7 @@ import RegisterPage from "../pages/RegisterPage";
 import { useAuth } from "../hooks/useAuth";
 import GuestRoutes from "./GuestRoutes";
 import AuthRoutes from "./AuthRoutes";
+import MyPostsPage from "../pages/MyPostsPage";
 
 interface Props {}
 
@@ -31,6 +32,7 @@ export default function MainRouter(_props: Props): JSX.Element {
               <Route index element={<HomePage />} />
               <Route path=":id" element={<PostPage />} />
             </Route>
+            <Route path="/mis-publicaciones" element={<MyPostsPage />} />
             <Route path="/usuarios" element={<UserListPage />} />
           </Route>
         </Route>

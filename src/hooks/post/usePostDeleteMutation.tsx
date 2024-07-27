@@ -36,9 +36,10 @@ export const usePostDeleteMutation = () => {
     },
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message || "Error al crear posts";
-      notifications.show({
+      notifications.update({
         id: postId,
         title: message,
+        loading: false,
         message: "",
         autoClose: 5000,
         withCloseButton: true,

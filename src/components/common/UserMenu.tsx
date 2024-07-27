@@ -1,7 +1,7 @@
 import { Button, Menu, rem, Stack, Text } from "@mantine/core";
-import { IconChevronDown, IconLogout } from "@tabler/icons-react";
+import { IconChevronDown, IconLibrary, IconLogout } from "@tabler/icons-react";
 import { useAppStore } from "../../store/useAppStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Props {}
 
@@ -39,6 +39,15 @@ export default function UserMenu(_props: Props): JSX.Element {
         </Menu.Target>
 
         <Menu.Dropdown>
+          <Menu.Item
+            leftSection={
+              <IconLibrary style={{ width: rem(14), height: rem(14) }} />
+            }
+            component={Link}
+            to={"/mis-publicaciones"}
+          >
+            Mis publicaciones
+          </Menu.Item>
           <Menu.Item
             leftSection={
               <IconLogout style={{ width: rem(14), height: rem(14) }} />

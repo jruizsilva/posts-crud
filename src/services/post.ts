@@ -1,8 +1,10 @@
 import { protectedInstance } from "../api/axiosInstances";
 import { Post, PostRequest } from "../types/post";
 
-export const fetchPostList = async () => {
-  const { data } = await protectedInstance.get<Post[]>("/posts");
+export const fetchPostList = async (locationSearch: string) => {
+  const { data } = await protectedInstance.get<Post[]>(
+    `/posts${locationSearch}`
+  );
   return data;
 };
 

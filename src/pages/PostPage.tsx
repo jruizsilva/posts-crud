@@ -10,11 +10,13 @@ import {
 import PostDelete from "../components/post/PostDelete/PostDelete";
 import PostEdit from "../components/post/PostEdit/PostEdit";
 import { usePostByIdQuery } from "../hooks/post/usePostByIdQuery";
+import { useAppStore } from "../store/useAppStore";
 
 interface Props {}
 
 export default function PostPage(_props: Props): JSX.Element {
   const { post, isPending } = usePostByIdQuery();
+  const userAuthenticated = useAppStore((store) => store.userAuthenticated);
 
   if (!post && isPending) {
     return (
@@ -44,10 +46,12 @@ export default function PostPage(_props: Props): JSX.Element {
             </Title>
             <Text c="dimmed">{post?.content}</Text>
           </Stack>
-          <Group>
-            <PostEdit post={post} />
-            <PostDelete />
-          </Group>
+          {userAuthenticated?.id === post.user_id && (
+            <Group>
+              <PostEdit post={post} />
+              <PostDelete />
+            </Group>
+          )}
         </Stack>
       </Paper>
     </>
