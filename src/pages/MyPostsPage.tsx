@@ -21,8 +21,8 @@ export default function MyPostsPage(_props: Props): JSX.Element {
       </Group>
       {isPending && (
         <SimpleGrid cols={3}>
-          {Array.from({ length: 9 }).map(() => (
-            <PostCardSkeleton />
+          {Array.from({ length: 9 }).map((_, index) => (
+            <PostCardSkeleton key={index} />
           ))}
         </SimpleGrid>
       )}

@@ -1,6 +1,7 @@
 import {
   Avatar,
   Group,
+  Pagination,
   Radio,
   rem,
   Stack,
@@ -14,6 +15,7 @@ import { useLocation, useSearchParams } from "react-router-dom";
 import { useDebouncedState } from "@mantine/hooks";
 import { useEffect } from "react";
 import UserRowSkeleton from "../components/common/UserRowSkeleton";
+import PaginationSkeleton from "../components/common/PaginationSkeleton";
 
 interface Props {}
 
@@ -62,6 +64,8 @@ export default function UserListPage(_props: Props): JSX.Element {
     );
   });
 
+  console.log(users);
+
   return (
     <>
       <Stack gap={"xs"}>
@@ -106,14 +110,24 @@ export default function UserListPage(_props: Props): JSX.Element {
             )}
             {isPending && (
               <>
-                {Array.from({ length: 4 }).map(() => (
-                  <UserRowSkeleton />
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <UserRowSkeleton key={index} />
                 ))}
               </>
             )}
             {!isPending && rows && rows.length > 0 && rows}
           </Table.Tbody>
         </Table>
+        {!isPending && users && users.total > 0 && (
+          <Pagination
+            total={users.total / users.per_page}
+            defaultValue={parseInt(searchParams.get("page") ?? "1")}
+            onChange={(value) => {
+              handleFilterChange("page", value.toString());
+            }}
+          />
+        )}
+        {isPending && <PaginationSkeleton />}
       </Stack>
     </>
   );
