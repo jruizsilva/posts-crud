@@ -3,7 +3,7 @@ import PostCard from "../components/post/PostCard/PostCard";
 import PostCreate from "../components/post/PostCreate/PostCreate";
 import { usePostListQuery } from "../hooks/post/usePostListQuery";
 import { useAppStore } from "../store/useAppStore";
-import CardSkeleton from "../components/common/CardSkeleton";
+import PostCardSkeleton from "../components/common/PostCardSkeleton";
 
 interface Props {}
 
@@ -19,15 +19,15 @@ export default function MyPostsPage(_props: Props): JSX.Element {
         </Title>
         <PostCreate />
       </Group>
-      {!isPending && posts && posts.length === 0 && (
-        <Text>No se encontraron resultados</Text>
-      )}
       {isPending && (
         <SimpleGrid cols={3}>
           {Array.from({ length: 9 }).map(() => (
-            <CardSkeleton />
+            <PostCardSkeleton />
           ))}
         </SimpleGrid>
+      )}
+      {!isPending && posts && posts.length === 0 && (
+        <Text>No se encontraron resultados</Text>
       )}
       {!isPending && posts && posts.length > 0 && (
         <SimpleGrid cols={3}>

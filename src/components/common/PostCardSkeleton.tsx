@@ -2,7 +2,7 @@ import { Stack, Skeleton, Group } from "@mantine/core";
 
 interface Props {}
 
-export default function CardSkeleton(_props: Props): JSX.Element {
+export default function PostCardSkeleton(_props: Props): JSX.Element {
   return (
     <>
       <Stack gap={"xs"} h={"120"} p={"md"}>
