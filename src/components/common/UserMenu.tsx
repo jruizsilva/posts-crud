@@ -1,5 +1,10 @@
 import { Button, Menu, rem, Stack, Text } from "@mantine/core";
-import { IconChevronDown, IconLibrary, IconLogout } from "@tabler/icons-react";
+import {
+  IconChevronDown,
+  IconLibrary,
+  IconLogout,
+  IconUser,
+} from "@tabler/icons-react";
 import { useAppStore } from "../../store/useAppStore";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -48,6 +53,16 @@ export default function UserMenu(_props: Props): JSX.Element {
           >
             Mis publicaciones
           </Menu.Item>
+          <Menu.Item
+            leftSection={
+              <IconUser style={{ width: rem(14), height: rem(14) }} />
+            }
+            component={Link}
+            to={"/mi-cuenta"}
+          >
+            Mi cuenta
+          </Menu.Item>
+          <Menu.Divider />
           <Menu.Item
             leftSection={
               <IconLogout style={{ width: rem(14), height: rem(14) }} />
