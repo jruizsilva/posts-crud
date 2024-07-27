@@ -3,15 +3,13 @@ import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { Post } from "../../types/post";
 import { fetchDeletePost } from "../../services/post";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IconCheck } from "@tabler/icons-react";
 
-export const usePostDeleteMutation = () => {
+export const usePostDeleteMutation = (postId: number) => {
   const mutationKey = ["post-delete"];
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const params = useParams();
-  const postId = params.id as string;
   const location = useLocation();
 
   const { mutate: deletePost, ...rest } = useMutation({
@@ -25,7 +23,7 @@ export const usePostDeleteMutation = () => {
         return oldPosts.filter((post) => post.id != Number(postId));
       });
       notifications.update({
-        id: postId,
+        id: postId.toString(),
         withCloseButton: true,
         color: "green",
         title: "Exito!",
@@ -39,7 +37,7 @@ export const usePostDeleteMutation = () => {
     onError: (error: AxiosError<{ message: string }>) => {
       const message = error.response?.data?.message || "Error al crear posts";
       notifications.update({
-        id: postId,
+        id: postId.toString(),
         title: message,
         loading: false,
         message: "",

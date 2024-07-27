@@ -3,13 +3,10 @@ import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { Post, PostRequest } from "../../types/post";
 import { fetchEditPost } from "../../services/post";
-import { useParams } from "react-router-dom";
 import { CheckIcon } from "@mantine/core";
 
-export const usePostEditMutation = () => {
+export const usePostEditMutation = (postId: number) => {
   const mutationKey = ["post-edit"];
-  const params = useParams();
-  const postId = params.id as string;
   const queryClient = useQueryClient();
 
   const { mutate: editPost, ...rest } = useMutation({

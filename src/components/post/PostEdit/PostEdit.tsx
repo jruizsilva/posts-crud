@@ -32,7 +32,7 @@ export default function PostEdit({ post }: Props): JSX.Element {
     },
     validate: yupResolver(schema),
   });
-  const { editPost } = usePostEditMutation();
+  const { editPost } = usePostEditMutation(post.id);
 
   return (
     <>

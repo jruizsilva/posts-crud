@@ -4,11 +4,14 @@ import { IconTrash } from "@tabler/icons-react";
 import { notifications } from "@mantine/notifications";
 import { usePostDeleteMutation } from "../../../hooks/post/usePostDeleteMutation";
 import { useParams } from "react-router-dom";
+import { Post } from "../../../types/post";
 
-interface Props {}
+interface Props {
+  post: Post;
+}
 
-export default function PostDelete(_props: Props): JSX.Element {
-  const { deletePost } = usePostDeleteMutation();
+export default function PostDelete({ post }: Props): JSX.Element {
+  const { deletePost } = usePostDeleteMutation(post.id);
   const params = useParams();
   const postId = params.id as string;
 

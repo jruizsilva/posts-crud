@@ -4,11 +4,14 @@ import PostEdit from "../components/post/PostEdit/PostEdit";
 import { usePostByIdQuery } from "../hooks/post/usePostByIdQuery";
 import { useAppStore } from "../store/useAppStore";
 import PostSkeleton from "../components/common/PostSkeleton";
+import { useParams } from "react-router-dom";
 
 interface Props {}
 
 export default function PostPage(_props: Props): JSX.Element {
-  const { post, isPending } = usePostByIdQuery();
+  const params = useParams();
+  const postId = Number(params.id);
+  const { post, isPending } = usePostByIdQuery(postId);
   const userAuthenticated = useAppStore((store) => store.userAuthenticated);
 
   if (isPending) {
@@ -37,7 +40,7 @@ export default function PostPage(_props: Props): JSX.Element {
         {userAuthenticated?.id === post.user_id && (
           <Group>
             <PostEdit post={post} />
-            <PostDelete />
+            <PostDelete post={post} />
           </Group>
         )}
       </Stack>

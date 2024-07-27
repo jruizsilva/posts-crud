@@ -8,7 +8,7 @@ export const fetchPostList = async (locationSearch: string) => {
   return data;
 };
 
-export const fetchPostById = async (postId: string) => {
+export const fetchPostById = async (postId: number) => {
   const { data } = await protectedInstance.get<Post>(`/posts/${postId}`);
   return data;
 };
@@ -19,7 +19,7 @@ export const fetchCreatePost = async (postRequest: PostRequest) => {
 };
 
 export const fetchEditPost = async (
-  postId: string,
+  postId: number,
   postRequest: PostRequest
 ) => {
   const { data } = await protectedInstance.put<Post>(
@@ -29,7 +29,7 @@ export const fetchEditPost = async (
   return data;
 };
 
-export const fetchDeletePost = async (postId: string) => {
+export const fetchDeletePost = async (postId: number) => {
   const { data } = await protectedInstance.delete<[]>(`/posts/${postId}`);
   return data;
 };
