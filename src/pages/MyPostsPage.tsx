@@ -1,4 +1,4 @@
-import { Group, Title, SimpleGrid } from "@mantine/core";
+import { Group, Title, SimpleGrid, Text } from "@mantine/core";
 import PostCard from "../components/post/PostCard/PostCard";
 import PostCreate from "../components/post/PostCreate/PostCreate";
 import { usePostListQuery } from "../hooks/post/usePostListQuery";
@@ -19,27 +19,23 @@ export default function MyPostsPage(_props: Props): JSX.Element {
         </Title>
         <PostCreate />
       </Group>
-      <SimpleGrid cols={3}>
-        {isPending && (
-          <>
-            {Array.from({ length: 9 }).map(() => (
-              <CardSkeleton />
-            ))}
-          </>
-        )}
-        {!isPending && posts && posts.length === 0 && (
-          <Title ta="center" mt={"lg"}>
-            No tienes publicaciones
-          </Title>
-        )}
-        {!isPending && posts && posts.length > 0 && (
-          <>
-            {posts?.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </>
-        )}
-      </SimpleGrid>
+      {!isPending && posts && posts.length === 0 && (
+        <Text>No se encontraron resultados</Text>
+      )}
+      {isPending && (
+        <SimpleGrid cols={3}>
+          {Array.from({ length: 9 }).map(() => (
+            <CardSkeleton />
+          ))}
+        </SimpleGrid>
+      )}
+      {!isPending && posts && posts.length > 0 && (
+        <SimpleGrid cols={3}>
+          {posts?.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </SimpleGrid>
+      )}
     </>
   );
 }

@@ -97,19 +97,19 @@ export default function UserListPage(_props: Props): JSX.Element {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
+            {!isPending && rows && rows.length === 0 && (
+              <Table.Tr>
+                <Table.Td colSpan={3} align="center">
+                  No se encontraron resultados
+                </Table.Td>
+              </Table.Tr>
+            )}
             {isPending && (
               <>
                 {Array.from({ length: 4 }).map(() => (
                   <UserRowSkeleton />
                 ))}
               </>
-            )}
-            {!isPending && rows && rows.length === 0 && (
-              <Table.Tr>
-                <Table.Td colSpan={3} align="center">
-                  No se encontraron usuarios
-                </Table.Td>
-              </Table.Tr>
             )}
             {!isPending && rows && rows.length > 0 && rows}
           </Table.Tbody>

@@ -20,22 +20,20 @@ export default function HomePage(_props: Props): JSX.Element {
       {!isPending && posts && posts.length === 0 && (
         <Text>No se encontraron resultados</Text>
       )}
-      <SimpleGrid cols={3}>
-        {isPending && (
-          <>
-            {Array.from({ length: 9 }).map(() => (
-              <CardSkeleton />
-            ))}
-          </>
-        )}
-        {!isPending && posts && posts.length > 0 && (
-          <>
-            {posts.map((post) => (
-              <PostCard key={post.id} post={post} />
-            ))}
-          </>
-        )}
-      </SimpleGrid>
+      {isPending && (
+        <SimpleGrid cols={3}>
+          {Array.from({ length: 9 }).map(() => (
+            <CardSkeleton />
+          ))}
+        </SimpleGrid>
+      )}
+      {!isPending && posts && posts.length > 0 && (
+        <SimpleGrid cols={3}>
+          {posts?.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
+        </SimpleGrid>
+      )}
     </>
   );
 }
