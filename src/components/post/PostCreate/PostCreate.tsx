@@ -9,6 +9,7 @@ import {
 import { useForm, yupResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import * as yup from "yup";
+import { usePostCreateMutation } from "../../../hooks/post/usePostCreateMutation";
 
 const schema = yup.object().shape({
   title: yup.string().required("Titulo requerido"),
@@ -18,6 +19,7 @@ const schema = yup.object().shape({
 interface Props {}
 
 export default function PostCreate(_props: Props): JSX.Element {
+  const { createPost, isPending } = usePostCreateMutation();
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm({
     mode: "uncontrolled",
@@ -29,10 +31,18 @@ export default function PostCreate(_props: Props): JSX.Element {
   });
   return (
     <>
+      <Button variant="light" onClick={open}>
+        Crear post
+      </Button>
       <Modal opened={opened} onClose={close} title="Crear publicación">
         <form
           onSubmit={form.onSubmit((values) => {
-            console.log(values);
+            createPost(values, {
+              onSuccess: () => {
+                close();
+                form.reset();
+              },
+            });
           })}
         >
           <SimpleGrid spacing={"xs"}>
@@ -59,13 +69,12 @@ export default function PostCreate(_props: Props): JSX.Element {
             >
               Cancelar
             </Button>
-            <Button type="submit">Crear</Button>
+            <Button type="submit" loading={isPending}>
+              Crear
+            </Button>
           </Group>
         </form>
       </Modal>
-      <Button variant="light" onClick={open}>
-        Crear post
-      </Button>
     </>
   );
 }

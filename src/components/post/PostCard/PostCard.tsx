@@ -12,7 +12,7 @@ export default function PostCard({ post }: Props): JSX.Element {
   return (
     <>
       <Card shadow="sm" padding="md">
-        <Stack gap={"xs"}>
+        <Stack gap={"xs"} h={"100%"}>
           <Text
             fw={500}
             size="lg"
@@ -28,7 +28,7 @@ export default function PostCard({ post }: Props): JSX.Element {
           <Text c="dimmed" size="sm" lineClamp={2}>
             {post.content}
           </Text>
-          <Group wrap="nowrap" gap="xs">
+          <Group wrap="nowrap" gap="xs" mt={"auto"}>
             <Group gap="xs" wrap="nowrap">
               <Avatar
                 size={20}
@@ -36,7 +36,7 @@ export default function PostCard({ post }: Props): JSX.Element {
                   post.user_id <= 10 ? post.user_id : 1
                 }.png`}
               />
-              <Text size="xs">{post.user.name}</Text>
+              <Text size="xs">{post.user?.name}</Text>
             </Group>
             <Text size="xs" c="dimmed">
               •
