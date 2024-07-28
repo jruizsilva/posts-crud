@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { CheckIcon } from "@mantine/core";
@@ -8,7 +8,6 @@ import { fetchDeleteImageUploaded } from "../../services/user";
 
 export const useUserDeleteImageUploaded = () => {
   const mutationKey = ["user-delete-image-uploaded"];
-  const queryClient = useQueryClient();
   const { userAuthenticated, setUserAuthenticated } = useAppStore(
     (store) => store
   );
@@ -19,7 +18,6 @@ export const useUserDeleteImageUploaded = () => {
       return await fetchDeleteImageUploaded();
     },
     onSuccess: (user: User) => {
-      queryClient.invalidateQueries({ queryKey: ["/users"] });
       setUserAuthenticated(user);
       notifications.update({
         id: userAuthenticated?.id.toString(),
