@@ -10,7 +10,7 @@ import { useForm, yupResolver } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { IconEdit } from "@tabler/icons-react";
 import * as yup from "yup";
-import { usePostEditMutation } from "../../../hooks/post/usePostEditMutation";
+import { usePostUpdateMutation } from "../../../hooks/post/usePostUpdateMutation";
 import { Post } from "../../../types/post";
 
 const schema = yup.object().shape({
@@ -32,14 +32,14 @@ export default function PostEdit({ post }: Props): JSX.Element {
     },
     validate: yupResolver(schema),
   });
-  const { editPost } = usePostEditMutation(post.id);
+  const { updatePost } = usePostUpdateMutation(post.id);
 
   return (
     <>
       <Modal opened={opened} onClose={close} title="Editar publicación">
         <form
           onSubmit={form.onSubmit((values) => {
-            editPost(values);
+            updatePost(values);
           })}
         >
           <SimpleGrid spacing={"xs"}>

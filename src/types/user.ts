@@ -20,8 +20,9 @@ interface UserRequest {
   password: string;
 }
 
-interface UserEditRequest {
-  name: string;
+interface UserUpdateRequest {
+  name?: string;
+  image?: File | null;
 }
 
-export type { User, UserRequest, UserListResponse, UserEditRequest };
+export type { User, UserRequest, UserListResponse, UserUpdateRequest };

@@ -18,7 +18,7 @@ export const fetchCreatePost = async (postRequest: PostRequest) => {
   return data;
 };
 
-export const fetchEditPost = async (
+export const fetchUpdatePost = async (
   postId: number,
   postRequest: PostRequest
 ) => {

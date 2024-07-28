@@ -1,6 +1,6 @@
 import { Fieldset, Stack, TextInput, Button } from "@mantine/core";
 import { useAppStore } from "../../store/useAppStore";
-import { useUserEditMutation } from "../../hooks/user/useUserEditMutation";
+import { useUserUpdateMutation } from "../../hooks/user/useUserUpdateMutation";
 import * as yup from "yup";
 import { useForm, yupResolver } from "@mantine/form";
 import { User } from "../../types/user";
@@ -15,7 +15,7 @@ interface Props {
 
 export default function UserInfoEdit({ user }: Props): JSX.Element {
   const userAuthenticated = useAppStore((store) => store.userAuthenticated);
-  const { editUser, isPending } = useUserEditMutation(user.id);
+  const { editUser, isPending } = useUserUpdateMutation(user.id);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {

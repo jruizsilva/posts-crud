@@ -1,9 +1,9 @@
 import { protectedInstance, publicInstance } from "../api/axiosInstances";
 import {
-  UserEditRequest,
   User,
   UserListResponse,
   UserRequest,
+  UserUpdateRequest,
 } from "../types/user";
 
 export const fetchUserListPagination = async (locationSearch: string) => {
@@ -25,13 +25,13 @@ export const fetchCreateUser = async (user: UserRequest) => {
   return data;
 };
 
-export const fetchEditUser = async (
+export const fetchUpdateUser = async (
   userId: number,
-  userEditRequest: UserEditRequest
+  userUpdateRequest: UserUpdateRequest
 ) => {
   const { data } = await protectedInstance.put<User>(
     `/users/${userId}`,
-    userEditRequest
+    userUpdateRequest
   );
   return data;
 };

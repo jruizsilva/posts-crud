@@ -2,21 +2,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { CheckIcon } from "@mantine/core";
-import { User, UserEditRequest } from "../../types/user";
-import { fetchEditUser } from "../../services/user";
+import { User, UserUpdateRequest } from "../../types/user";
+import { fetchUpdateUser } from "../../services/user";
 import { useAppStore } from "../../store/useAppStore";
 
-export const useUserEditMutation = (userId: number) => {
+export const useUserUpdateMutation = (userId: number) => {
   const mutationKey = ["user-edit"];
   const queryClient = useQueryClient();
   const setUserAuthenticated = useAppStore(
     (store) => store.setUserAuthenticated
   );
 
-  const { mutate: editUser, ...rest } = useMutation({
+  const { mutate: updateUser, ...rest } = useMutation({
     mutationKey,
-    mutationFn: async (userEditRequest: UserEditRequest) => {
-      return await fetchEditUser(userId, userEditRequest);
+    mutationFn: async (userUpdateRequest: UserUpdateRequest) => {
+      return await fetchUpdateUser(userId, userUpdateRequest);
     },
     onSuccess: (user: User) => {
       queryClient.invalidateQueries({ queryKey: ["/users"] });
@@ -31,7 +31,8 @@ export const useUserEditMutation = (userId: number) => {
       });
     },
     onError: (error: AxiosError<{ message: string }>) => {
-      const message = error.response?.data?.message || "Error al editar user";
+      const message =
+        error.response?.data?.message || "Error al actualizar usuario";
       notifications.show({
         title: message,
         message: "",
@@ -42,5 +43,5 @@ export const useUserEditMutation = (userId: number) => {
     },
   });
 
-  return { editUser, ...rest };
+  return { updateUser, ...rest };
 };

@@ -2,17 +2,17 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { Post, PostRequest } from "../../types/post";
-import { fetchEditPost } from "../../services/post";
+import { fetchUpdatePost } from "../../services/post";
 import { CheckIcon } from "@mantine/core";
 
-export const usePostEditMutation = (postId: number) => {
-  const mutationKey = ["post-edit"];
+export const usePostUpdateMutation = (postId: number) => {
+  const mutationKey = ["post-update"];
   const queryClient = useQueryClient();
 
-  const { mutate: editPost, ...rest } = useMutation({
+  const { mutate: updatePost, ...rest } = useMutation({
     mutationKey,
     mutationFn: async (post: PostRequest) => {
-      return await fetchEditPost(postId, post);
+      return await fetchUpdatePost(postId, post);
     },
     onSuccess: (post: Post) => {
       const queryKey = ["/posts", postId];
@@ -39,5 +39,5 @@ export const usePostEditMutation = (postId: number) => {
     },
   });
 
-  return { editPost, ...rest };
+  return { updatePost, ...rest };
 };
