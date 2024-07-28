@@ -30,7 +30,7 @@ export default function PostCard({ post }: Props): JSX.Element {
           </Text>
           <Group wrap="nowrap" gap="xs" mt={"auto"}>
             <Group gap="xs" wrap="nowrap">
-              <Avatar size={20} color="indigo" />
+              <Avatar size={20} color="indigo" src={post.user.image} />
               <Text size="xs">{post.user?.name}</Text>
             </Group>
             <Text size="xs" c="dimmed">

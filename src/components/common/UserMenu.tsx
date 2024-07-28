@@ -1,4 +1,4 @@
-import { Button, Menu, rem, Stack, Text } from "@mantine/core";
+import { Avatar, Button, Group, Menu, rem, Stack, Text } from "@mantine/core";
 import {
   IconChevronDown,
   IconLibrary,
@@ -32,14 +32,17 @@ export default function UserMenu(_props: Props): JSX.Element {
             color="gray"
             rightSection={<IconChevronDown size={"1rem"} />}
           >
-            <Stack gap={0}>
-              <Text size="xs" fw={500} tt={"capitalize"}>
-                {userAuthenticated?.name}
-              </Text>
-              <Text c="dimmed" size="xs" tt={"lowercase"}>
-                {userAuthenticated?.email}
-              </Text>
-            </Stack>
+            <Group gap={"xs"}>
+              <Avatar size={32} src={userAuthenticated?.image} />
+              <Stack gap={0} align="flex-start">
+                <Text size="xs" fw={500} tt={"capitalize"}>
+                  {userAuthenticated?.name}
+                </Text>
+                <Text c="dimmed" size="xs" tt={"lowercase"}>
+                  {userAuthenticated?.email}
+                </Text>
+              </Stack>
+            </Group>
           </Button>
         </Menu.Target>
 

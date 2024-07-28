@@ -42,13 +42,13 @@ export default function UserListPage(_props: Props): JSX.Element {
     });
   };
 
-  const rows = users?.data?.map(({ id, email, name, posts }) => {
+  const rows = users?.data?.map(({ id, email, name, posts, image }) => {
     return (
       <Table.Tr key={id}>
         <Table.Td>{id}</Table.Td>
         <Table.Td>
           <Group gap="sm">
-            <Avatar size={26} radius={26} color="indigo" />
+            <Avatar size={26} radius={26} color="indigo" src={image} />
             <Stack gap={0}>
               <Text size="sm" fw={500}>
                 {name}

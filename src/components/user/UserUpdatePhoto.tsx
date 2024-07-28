@@ -6,10 +6,14 @@ import {
   SimpleGrid,
   FileInput,
   Button,
+  Text,
 } from "@mantine/core";
 import { User } from "../../types/user";
 import { useState, useEffect } from "react";
 import { useUserUploadImage } from "../../hooks/user/useUserUploadImage";
+import { useUserDeleteImageUploaded } from "../../hooks/user/useUserDeleteImageUploaded";
+import { modals } from "@mantine/modals";
+import { notifications } from "@mantine/notifications";
 
 interface Props {
   user: User;
@@ -21,6 +25,7 @@ export default function UserUpdatePhoto({ user }: Props): JSX.Element {
     null
   );
   const { uploadUserImage } = useUserUploadImage();
+  const { deleteImageUploaded } = useUserDeleteImageUploaded();
 
   useEffect(() => {
     if (file) {
@@ -36,14 +41,41 @@ export default function UserUpdatePhoto({ user }: Props): JSX.Element {
 
   const handleUpdatePhoto = () => {
     if (file) {
-      console.log(file);
       const formData = new FormData();
       formData.append("image", file);
-      uploadUserImage(formData);
+      uploadUserImage(formData, {
+        onSuccess: () => setFile(null),
+        onError: () => setFile(null),
+      });
     }
   };
 
   const imageToShow: string = previewUrl ? previewUrl.toString() : user.image;
+
+  const openDeleteModal = () =>
+    modals.openConfirmModal({
+      title: "Eliminar foto subida",
+      centered: true,
+      children: (
+        <Text size="sm">
+          ¿Estás seguro de que quieres eliminar la foto de perfil? <br />
+          Esta acción no se puede deshacer.
+        </Text>
+      ),
+      labels: { confirm: "Eliminar", cancel: "Cancelar" },
+      confirmProps: { color: "red" },
+      onConfirm: () => {
+        deleteImageUploaded();
+        notifications.show({
+          id: user.id.toString(),
+          loading: true,
+          title: "Eliminando...",
+          message: "",
+          autoClose: false,
+          withCloseButton: false,
+        });
+      },
+    });
 
   return (
     <>
@@ -54,12 +86,13 @@ export default function UserUpdatePhoto({ user }: Props): JSX.Element {
           </Center>
           <SimpleGrid cols={user.image ? 2 : 1}>
             <FileInput
+              value={file}
               onChange={setFile}
               clearable
               placeholder="Selecciona una imagen"
             />
             {user.image && (
-              <Button variant="subtle" color={"red"}>
+              <Button variant="subtle" color={"red"} onClick={openDeleteModal}>
                 Eliminar imagen
               </Button>
             )}
