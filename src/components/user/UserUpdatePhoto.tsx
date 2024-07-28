@@ -9,7 +9,7 @@ import {
 } from "@mantine/core";
 import { User } from "../../types/user";
 import { useState, useEffect } from "react";
-import { useUserUpdateMutation } from "../../hooks/user/useUserUpdateMutation";
+import { useUserUploadImage } from "../../hooks/user/useUserUploadImage";
 
 interface Props {
   user: User;
@@ -20,9 +20,7 @@ export default function UserUpdatePhoto({ user }: Props): JSX.Element {
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
     null
   );
-  const { updateUser } = useUserUpdateMutation(user.id);
-
-  console.log(user);
+  const { uploadUserImage } = useUserUploadImage();
 
   useEffect(() => {
     if (file) {
@@ -38,22 +36,24 @@ export default function UserUpdatePhoto({ user }: Props): JSX.Element {
 
   const handleUpdatePhoto = () => {
     if (file) {
+      console.log(file);
       const formData = new FormData();
       formData.append("image", file);
-      updateUser(formData);
+      uploadUserImage(formData);
     }
   };
+
+  const imageToShow: string = previewUrl ? previewUrl.toString() : user.image;
 
   return (
     <>
       <Fieldset legend="Foto de perfíl">
         <Stack h={"100%"}>
           <Center flex={1}>
-            <Avatar size={"xl"} src={previewUrl as string} />
+            <Avatar size={"xl"} src={imageToShow} />
           </Center>
           <SimpleGrid cols={user.image ? 2 : 1}>
             <FileInput
-              value={file}
               onChange={setFile}
               clearable
               placeholder="Selecciona una imagen"

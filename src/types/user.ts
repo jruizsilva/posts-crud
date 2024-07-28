@@ -22,8 +22,17 @@ interface UserRequest {
 }
 
 interface UserUpdateRequest {
-  name?: string;
-  image?: File;
+  name: string;
 }
 
-export type { User, UserRequest, UserListResponse, UserUpdateRequest };
+interface UserUploadImageRequest {
+  image: File;
+}
+
+export type {
+  User,
+  UserRequest,
+  UserListResponse,
+  UserUpdateRequest,
+  UserUploadImageRequest,
+};

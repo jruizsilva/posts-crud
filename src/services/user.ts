@@ -27,11 +27,30 @@ export const fetchCreateUser = async (user: UserRequest) => {
 
 export const fetchUpdateUser = async (
   userId: number,
-  userUpdateRequest: UserUpdateRequest | FormData
+  userUpdateRequest: UserUpdateRequest
 ) => {
+  console.log(userUpdateRequest);
   const { data } = await protectedInstance.put<User>(
     `/users/${userId}`,
     userUpdateRequest
   );
+  return data;
+};
+
+export const fetchUploadUserPhoto = async (formData: FormData) => {
+  const { data } = await protectedInstance.post<User>(
+    `/me/uploadImage`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  return data;
+};
+
+export const fetchDeleteImageUploaded = async () => {
+  const { data } = await protectedInstance.delete<User>("/me/destroyImage");
   return data;
 };

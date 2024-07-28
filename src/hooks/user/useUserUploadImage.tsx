@@ -2,21 +2,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { notifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
 import { CheckIcon } from "@mantine/core";
-import { User, UserUpdateRequest } from "../../types/user";
-import { fetchUpdateUser } from "../../services/user";
+import { User } from "../../types/user";
+import { fetchUploadUserPhoto } from "../../services/user";
 import { useAppStore } from "../../store/useAppStore";
 
-export const useUserUpdateMutation = (userId: number) => {
-  const mutationKey = ["user-edit"];
+export const useUserUploadImage = () => {
+  const mutationKey = ["user-upload-image"];
   const queryClient = useQueryClient();
   const setUserAuthenticated = useAppStore(
     (store) => store.setUserAuthenticated
   );
 
-  const { mutate: updateUser, ...rest } = useMutation({
+  const { mutate: uploadUserImage, ...rest } = useMutation({
     mutationKey,
-    mutationFn: async (userUpdateRequest: UserUpdateRequest) => {
-      return await fetchUpdateUser(userId, userUpdateRequest);
+    mutationFn: async (formData: FormData) => {
+      return await fetchUploadUserPhoto(formData);
     },
     onSuccess: (user: User) => {
       queryClient.invalidateQueries({ queryKey: ["/users"] });
@@ -43,5 +43,5 @@ export const useUserUpdateMutation = (userId: number) => {
     },
   });
 
-  return { updateUser, ...rest };
+  return { uploadUserImage, ...rest };
 };
