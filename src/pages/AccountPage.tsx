@@ -1,7 +1,7 @@
 import { Loader, SimpleGrid, Stack, Title } from "@mantine/core";
 import { useAppStore } from "../store/useAppStore";
-import UserInfoUpdate from "../components/user/UserInfoUpdate";
-import UserPhotoUpdate from "../components/user/UserPhotoUpdate";
+import UserUpdateInfo from "../components/user/UserUpdateInfo";
+import UserUpdatePhoto from "../components/user/UserUpdatePhoto";
 
 interface Props {}
 
@@ -15,8 +15,8 @@ export default function AccountPage(_props: Props): JSX.Element {
       <Stack>
         <Title fw={500}>Mi cuenta</Title>
         <SimpleGrid cols={{ base: 1, sm: 2 }}>
-          <UserInfoUpdate user={userAuthenticated} />
-          <UserPhotoUpdate user={userAuthenticated} />
+          <UserUpdateInfo user={userAuthenticated} />
+          <UserUpdatePhoto user={userAuthenticated} />
         </SimpleGrid>
       </Stack>
     </>

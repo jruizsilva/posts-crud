@@ -13,7 +13,7 @@ interface Props {
   user: User;
 }
 
-export default function UserInfoUpdate({ user }: Props): JSX.Element {
+export default function UserUpdateInfo({ user }: Props): JSX.Element {
   const userAuthenticated = useAppStore((store) => store.userAuthenticated);
   const { updateUser, isPending } = useUserUpdateMutation(user.id);
   const form = useForm({

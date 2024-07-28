@@ -5,6 +5,7 @@ interface User {
   id: number;
   name: string;
   email: string;
+  image: string;
   posts: Post[];
   created_at: string;
   updated_at: string;
@@ -22,7 +23,7 @@ interface UserRequest {
 
 interface UserUpdateRequest {
   name?: string;
-  image?: File | null;
+  image?: File;
 }
 
 export type { User, UserRequest, UserListResponse, UserUpdateRequest };

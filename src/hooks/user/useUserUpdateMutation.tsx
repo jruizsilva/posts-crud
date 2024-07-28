@@ -15,7 +15,7 @@ export const useUserUpdateMutation = (userId: number) => {
 
   const { mutate: updateUser, ...rest } = useMutation({
     mutationKey,
-    mutationFn: async (userUpdateRequest: UserUpdateRequest) => {
+    mutationFn: async (userUpdateRequest: UserUpdateRequest | FormData) => {
       return await fetchUpdateUser(userId, userUpdateRequest);
     },
     onSuccess: (user: User) => {

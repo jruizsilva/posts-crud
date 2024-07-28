@@ -27,7 +27,7 @@ export const fetchCreateUser = async (user: UserRequest) => {
 
 export const fetchUpdateUser = async (
   userId: number,
-  userUpdateRequest: UserUpdateRequest
+  userUpdateRequest: UserUpdateRequest | FormData
 ) => {
   const { data } = await protectedInstance.put<User>(
     `/users/${userId}`,
