@@ -22,7 +22,7 @@ interface Props {
   post: Post;
 }
 
-export default function PostEdit({ post }: Props): JSX.Element {
+export default function PostUpdate({ post }: Props): JSX.Element {
   const [opened, { open, close }] = useDisclosure(false);
   const form = useForm({
     mode: "uncontrolled",

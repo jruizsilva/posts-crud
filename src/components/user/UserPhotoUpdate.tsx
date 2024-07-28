@@ -14,7 +14,7 @@ interface Props {
   user: User;
 }
 
-export default function UserPhotoEdit(_props: Props): JSX.Element {
+export default function UserPhotoUpdate(_props: Props): JSX.Element {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
     null

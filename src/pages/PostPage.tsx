@@ -1,6 +1,6 @@
 import { Center, Group, Stack, Text, Title } from "@mantine/core";
 import PostDelete from "../components/post/PostDelete/PostDelete";
-import PostEdit from "../components/post/PostEdit/PostEdit";
+import PostUpdate from "../components/post/PostUpdate/PostUpdate";
 import { usePostByIdQuery } from "../hooks/post/usePostByIdQuery";
 import { useAppStore } from "../store/useAppStore";
 import PostSkeleton from "../components/common/PostSkeleton";
@@ -39,7 +39,7 @@ export default function PostPage(_props: Props): JSX.Element {
         </Stack>
         {userAuthenticated?.id === post.user_id && (
           <Group>
-            <PostEdit post={post} />
+            <PostUpdate post={post} />
             <PostDelete post={post} />
           </Group>
         )}

@@ -13,9 +13,9 @@ interface Props {
   user: User;
 }
 
-export default function UserInfoEdit({ user }: Props): JSX.Element {
+export default function UserInfoUpdate({ user }: Props): JSX.Element {
   const userAuthenticated = useAppStore((store) => store.userAuthenticated);
-  const { editUser, isPending } = useUserUpdateMutation(user.id);
+  const { updateUser, isPending } = useUserUpdateMutation(user.id);
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -29,7 +29,7 @@ export default function UserInfoEdit({ user }: Props): JSX.Element {
       <Fieldset legend="Información personal">
         <form
           onSubmit={form.onSubmit((values) => {
-            editUser(values);
+            updateUser(values);
           })}
         >
           <Stack gap={"xs"}>
