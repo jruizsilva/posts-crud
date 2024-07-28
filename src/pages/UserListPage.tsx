@@ -13,7 +13,7 @@ import { useUserListPaginationQuery } from "../hooks/user/useUserListPaginationQ
 import { IconSearch } from "@tabler/icons-react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useDebouncedState } from "@mantine/hooks";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import UserRowSkeleton from "../components/common/UserRowSkeleton";
 import PaginationSkeleton from "../components/common/PaginationSkeleton";
 
@@ -64,7 +64,10 @@ export default function UserListPage(_props: Props): JSX.Element {
     );
   });
 
-  console.log(users);
+  const totalPages = useMemo(() => {
+    if (!users) return 0;
+    return Math.ceil(users.total / users.per_page);
+  }, [users]);
 
   return (
     <>
@@ -120,7 +123,7 @@ export default function UserListPage(_props: Props): JSX.Element {
         </Table>
         {!isPending && users && users.total > 0 && (
           <Pagination
-            total={users.total / users.per_page}
+            total={totalPages}
             defaultValue={parseInt(searchParams.get("page") ?? "1")}
             onChange={(value) => {
               handleFilterChange("page", value.toString());
