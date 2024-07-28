@@ -4,6 +4,7 @@ import {
   Center,
   Fieldset,
   FileInput,
+  Loader,
   SimpleGrid,
   Stack,
   TextInput,
@@ -11,6 +12,7 @@ import {
 } from "@mantine/core";
 import { useAppStore } from "../store/useAppStore";
 import { useEffect, useState } from "react";
+import UserInfoEdit from "../components/user/UserInfoEdit";
 
 interface Props {}
 
@@ -33,29 +35,14 @@ export default function AccountPage(_props: Props): JSX.Element {
     }
   }, [file]);
 
+  if (!userAuthenticated) return <Loader />;
+
   return (
     <>
       <Stack>
         <Title fw={500}>Mi cuenta</Title>
-        <SimpleGrid cols={{ base: 1, xs: 2 }}>
-          <Fieldset legend="Información personal">
-            <Stack gap={"xs"}>
-              <TextInput
-                label="Nombre"
-                placeholder="Nombre"
-                defaultValue={userAuthenticated?.name}
-              />
-              <TextInput
-                label="Correo"
-                placeholder="Correo"
-                disabled
-                value={userAuthenticated?.email}
-              />
-            </Stack>
-            <Button type="submit" mt={"md"}>
-              Guardar cambios
-            </Button>
-          </Fieldset>
+        <SimpleGrid cols={{ base: 1, sm: 2 }}>
+          <UserInfoEdit user={userAuthenticated} />
           <Fieldset legend="Foto de perfíl">
             <Stack h={"100%"}>
               <Center flex={1}>

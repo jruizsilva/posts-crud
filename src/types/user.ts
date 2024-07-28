@@ -20,4 +20,8 @@ interface UserRequest {
   password: string;
 }
 
-export type { User, UserRequest, UserListResponse };
+interface UserEditRequest {
+  name: string;
+}
+
+export type { User, UserRequest, UserListResponse, UserEditRequest };

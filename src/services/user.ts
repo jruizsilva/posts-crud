@@ -1,5 +1,10 @@
 import { protectedInstance, publicInstance } from "../api/axiosInstances";
-import { User, UserListResponse, UserRequest } from "../types/user";
+import {
+  UserEditRequest,
+  User,
+  UserListResponse,
+  UserRequest,
+} from "../types/user";
 
 export const fetchUserListPagination = async (locationSearch: string) => {
   let queryString = locationSearch.startsWith("?")
@@ -17,5 +22,16 @@ export const fetchUserListPagination = async (locationSearch: string) => {
 
 export const fetchCreateUser = async (user: UserRequest) => {
   const { data } = await publicInstance.post<User>("/users", user);
+  return data;
+};
+
+export const fetchEditUser = async (
+  userId: number,
+  userEditRequest: UserEditRequest
+) => {
+  const { data } = await protectedInstance.put<User>(
+    `/users/${userId}`,
+    userEditRequest
+  );
   return data;
 };
