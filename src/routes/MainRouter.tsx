@@ -9,6 +9,7 @@ import GuestRoutes from "./GuestRoutes";
 import AuthRoutes from "./AuthRoutes";
 import MyPostsPage from "../pages/MyPostsPage";
 import AccountPage from "../pages/AccountPage";
+import LoginPage2 from "../pages/LoginPage2";
 
 interface Props {}
 

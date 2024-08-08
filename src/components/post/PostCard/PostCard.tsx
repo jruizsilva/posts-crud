@@ -1,6 +1,6 @@
 import { Avatar, Card, Group, Stack, Text } from "@mantine/core";
 import { Link } from "react-router-dom";
-import classes from "./PostCard.module.scss";
+import classes from "./PostCard.module.css";
 import { Post } from "../../../types/post";
 import { formatDate } from "../../../helpers/formatDate";
 
@@ -19,7 +19,6 @@ export default function PostCard({ post }: Props): JSX.Element {
             lineClamp={1}
             component={Link}
             to={`/publicaciones/${post.id}`}
-            state={{ post }}
             className={classes.title}
           >
             {post.title}

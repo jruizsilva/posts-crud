@@ -8,7 +8,7 @@ import {
   useMatches,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import classes from "./MainLayout.module.scss";
+import classes from "./MainLayout.module.css";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import UserMenu from "../common/UserMenu";
 
