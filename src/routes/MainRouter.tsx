@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { MainLayout } from "../components/layouts/MainLayout";
 import { HomePage, LoginPage, UserListPage } from "../pages";
 import PostPage from "../pages/PostPage";
 import { Center, Loader } from "@mantine/core";
@@ -9,7 +8,8 @@ import GuestRoutes from "./GuestRoutes";
 import AuthRoutes from "./AuthRoutes";
 import MyPostsPage from "../pages/MyPostsPage";
 import AccountPage from "../pages/AccountPage";
-import LoginPage2 from "../pages/LoginPage2";
+import { MainLayout2 } from "../components/layouts/MainLayout2";
+import { MainLayout } from "../components/layouts/MainLayout";
 
 interface Props {}
 

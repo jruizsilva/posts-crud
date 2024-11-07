@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
 import { baseURL } from "../utils/baseURL";
 
@@ -14,14 +14,14 @@ protectedInstance.interceptors.request.use(
     const AUTH_TOKEN = localStorage.getItem("AUTH_TOKEN");
 
     if (AUTH_TOKEN === null) {
-      throw new AxiosError("Token not found");
+      throw new Error("Token is required");
     }
 
-    config.headers.Authorization = "Bearer " + AUTH_TOKEN;
+    config.headers.Authorization = `Bearer ${AUTH_TOKEN}`;
 
     return config;
   },
-  async function (error: AxiosError<{ message: string }>) {
+  async function (error) {
     return await Promise.reject(error);
   }
 );

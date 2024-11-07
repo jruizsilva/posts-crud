@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Code,
   Group,
   Pagination,
   Radio,
@@ -72,6 +73,7 @@ export default function UserListPage(_props: Props): JSX.Element {
   return (
     <>
       <Stack gap={"xs"}>
+        {/* {users && <Code block>{JSON.stringify(users.data, null, 2)}</Code>} */}
         <Stack>
           <TextInput
             defaultValue={searchParams.get("search") ?? ""}

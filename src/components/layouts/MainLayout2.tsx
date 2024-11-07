@@ -8,7 +8,7 @@ import {
   useMatches,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import UserMenu from "../common/UserMenu";
 
 const links = [
@@ -16,18 +16,14 @@ const links = [
   { link: "/usuarios", label: "Usuarios" },
 ];
 
-export function MainLayout() {
+export function MainLayout2() {
   const [opened, { toggle }] = useDisclosure();
   const buttonSize = useMatches({ base: "md", xs: "xs" });
-  const { pathname } = useLocation();
 
-  const items = links.map(({ label, link }) => (
+  const items = links.map(({ label }) => (
     <Button
-      component={NavLink}
       key={label}
-      to={link}
       color="gray"
-      variant={pathname == link ? "default" : "subtle"}
       w={{ base: "100%", xs: "auto" }}
       size={buttonSize}
     >
@@ -53,8 +49,6 @@ export function MainLayout() {
               fw={900}
               variant="gradient"
               gradient={{ from: "indigo", to: "teal", deg: 90 }}
-              component={NavLink}
-              to={"/"}
               visibleFrom="xs"
             >
               Blog App
